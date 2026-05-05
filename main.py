@@ -8,7 +8,7 @@ class Cerveja(SQLModel, table = True):
     id_bebida: Optional[int] = Field(primary_key = True, default = None)
     nome: str = Field(index = True, unique = True)
     preco: float
-    nivel: str
+    categoria: str
     
 sqlite_file_name = 'sistema_bar.db'
 sqlite_url = f'sqlite:///{sqlite_file_name}'
@@ -34,20 +34,19 @@ def pop_banco_se_vazio():
     with Session(engine) as session:
         if session.exec(select(Cerveja)).first() is None:
             TABELA_CERVEJA = {
-                'Skol': {'preço': 2.99, 'nível': 'Garoto'},
-                'Antártica': {'preço': 2.99, 'nível': 'Homem'},
-                'Ice': {'preço': 4.50, 'nível': 'Até uma Mulher é mais homem que tu'},
-                'Skol Beats': {'preço': 4.50, 'nível': 'Até uma Mulher é mais homem que tu'},
-                'Amstel': {'preço': 3.99, 'nível': 'Homem'},
-                'Brahma': {'preço': 3.99, 'nível': 'Homem'},
-                'Corona 600ml': {'preço': 5.99, 'nível': 'Velho da Corona'},
-                'Shot - Velho Barreiro': {'preço': 5.49, 'nível': 'Cuiudo'},
-                'Shot - São Fransisco': {'preço': 5.79, 'nível': 'Cuiudo'},
-                'Shot - Pitú': {'preço': 6.49, 'nível': 'Cuiudo'},
-                'Shot - Querosene Puro': {'preço': 10.00, 'nível': 'Cuiudo Master'}
+                'Skol': {'preço': 2.99, 'categoria': 'Cerveja'},
+                'Antártica': {'preço': 2.99, 'categoria': 'Cerveja'},
+                'Ice': {'preço': 4.50, 'categoria': 'Cerveja'},
+                'Skol Beats': {'preço': 4.50, 'categoria': 'Cerveja'},
+                'Amstel': {'preço': 3.99, 'categoria': 'Cerveja'},
+                'Brahma': {'preço': 3.99, 'categoria': 'Cerveja'},
+                'Corona 600ml': {'preço': 5.99, 'categoria': 'Cerveja'},
+                'Shot - Velho Barreiro': {'preço': 5.49, 'categoria': 'Cachaça'},
+                'Shot - São Fransisco': {'preço': 5.79, 'categoria': 'Cachaça'},
+                'Shot - Pitú': {'preço': 6.49, 'categoria': 'Aguardente'}
             }
             for nome, info in TABELA_CERVEJA.items():
-                cerveja = Cerveja(nome = nome, preco = info['preço'], nivel = info['nível'])
+                cerveja = Cerveja(nome = nome, preco = info['preço'], categoria = info['categoria'])
                 session.add(cerveja)
             session.commit()
 
