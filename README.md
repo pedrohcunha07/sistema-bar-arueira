@@ -1,4 +1,4 @@
-# Documentação necessária para o projeto de ESW
+# Documentação necessária para o projeto 
 
 ## Planilha de funcionalidades do sistema
 
